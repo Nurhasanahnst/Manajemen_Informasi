@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Manajemen & Perilaku Organisasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 0 0 50px 50px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .research-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+        }
+
+        .section h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #764ba2;
+        }
+
+        .section h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            color: #4a5568;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .factor-card {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .factor-card:hover {
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .factor-card h4 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .components-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .component-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .component-item h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .methodology {
+            background: linear-gradient(135deg, #e6fffa, #f0fff4);
+            border: 2px solid #38b2ac;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border: 2px solid #e53e3e;
+        }
+
+        .author-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .factors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSection('header')"></div>
+        <div class="nav-dot" onclick="scrollToSection('penelitian')"></div>
+        <div class="nav-dot" onclick="scrollToSection('sim')"></div>
+        <div class="nav-dot" onclick="scrollToSection('perilaku')"></div>
+        <div class="nav-dot" onclick="scrollToSection('hubungan')"></div>
+        <div class="nav-dot" onclick="scrollToSection('kesimpulan')"></div>
+    </div>
+
+    <div class="container">
+        <header id="header">
+            <h1>Sistem Informasi Manajemen</h1>
+            <p class="subtitle">Hubungannya dengan Kualitas Perilaku Organisasi</p>
+        </header>
+
+        <div class="research-info" id="penelitian">
+            <h2>Informasi Penelitian</h2>
+            <div class="highlight-box">
+                <p><strong>Peneliti:</strong> Farid Wadjdi & Yuliza Yuliza</p>
+                <p><strong>Institusi:</strong> STIE Aprin Palembang, Indonesia</p>
+                <p><strong>Publikasi:</strong> JPPI (Jurnal Penelitian Pendidikan Indonesia), Vol. 9, No. 2, 2023</p>
+                <p><strong>Metode:</strong> Penelitian Deskriptif Kualitatif dengan Studi Kepustakaan</p>
+            </div>
+        </div>
+
+        <div class="section" id="sim">
+            <h2>Sistem Informasi Manajemen (SIM)</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Definisi:</strong> Sistem Informasi Manajemen adalah sistem perencanaan bagian dari pengendalian internal suatu bisnis yang meliputi pemanfaatan manusia, dokumen, teknologi, dan prosedur untuk memecahkan masalah bisnis.</p>
+            </div>
+
+            <h3>Komponen Dasar SIM</h3>
+            <div class="components-list">
+                <div class="component-item">
+                    <h4>People Resource</h4>
+                    <p>Sumber daya manusia yang mengoperasikan sistem informasi sebagai pemakai akhir dan pakar sistem.</p>
+                </div>
+                <div class="component-item">
+                    <h4>Hardware Resource</h4>
+                    <p>Sumber daya perangkat keras untuk pemrosesan informasi, termasuk komputer dan media penyimpanan.</p>
+                </div>
+                <div class="component-item">
+                    <h4>Software Resource</h4>
+                    <p>Program dan prosedur yang mengatur pemrosesan informasi dalam sistem.</p>
+                </div>
+                <div class="component-item">
+                    <h4>Data Resource</h4>
+                    <p>Berbagai jenis data seperti teks, gambar, audio, dan video yang mendukung operasi bisnis.</p>
+                </div>
+                <div class="component-item">
+                    <h4>Network Resource</h4>
+                    <p>Jaringan internet, intranet, dan ekstranet untuk komunikasi dan operasi e-business.</p>
+                </div>
+            </div>
+
+            <h3>Fungsi dan Kegunaan SIM</h3>
+            <p>Sistem informasi manajemen memiliki berbagai fungsi penting dalam organisasi:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>Meningkatkan aksesibilitas data secara tepat waktu dan akurat</li>
+                <li>Mengembangkan proses perencanaan yang efektif</li>
+                <li>Memperbaiki produktivitas dalam pengembangan sistem</li>
+                <li>Mendukung pengambilan keputusan strategis, taktis, dan operasional</li>
+                <li>Mengantisipasi konsekuensi ekonomis dari teknologi baru</li>
+            </ul>
+        </div>
+
+        <div class="section" id="perilaku">
+            <h2>Perilaku Organisasi</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Definisi:</strong> Perilaku Organisasi adalah disiplin ilmu yang mempelajari perilaku tingkat individu dan kelompok serta dampaknya terhadap kinerja organisasi.</p>
+            </div>
+
+            <h3>Faktor-faktor yang Mempengaruhi Perilaku Organisasi</h3>
+            <div class="factors-grid">
+                <div class="factor-card">
+                    <h4>Peningkatan Kepuasan Kerja</h4>
+                    <p>Kepuasan kerja individu dipengaruhi oleh hak-hak yang diperoleh atas pekerjaan yang telah dilaksanakan.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Pengurangan Kealpaan</h4>
+                    <p>Mengurangi tindakan tidak masuk kerja yang berpengaruh negatif terhadap efektivitas organisasi.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Penurunan Turn-over</h4>
+                    <p>Mengurangi pengunduran diri karyawan yang dapat mempengaruhi perilaku organisasi.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Peningkatan Produktivitas</h4>
+                    <p>Organisasi yang mampu mencapai tujuan sesuai target waktu, biaya, dan hasil.</p>
+                </div>
+            </div>
+
+            <h3>Faktor-faktor Prestasi Kerja</h3>
+            <div class="factors-grid">
+                <div class="factor-card">
+                    <h4>Kompetensi Individu</h4>
+                    <p>Kemampuan melakukan kerja yang dipengaruhi oleh pendidikan, pelatihan, pengalaman, motivasi, dan etos kerja.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Dukungan Organisasi</h4>
+                    <p>Pengorganisasian, penyediaan sarana prasarana, dan syarat kerja yang mendukung.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Kondisi Kerja</h4>
+                    <p>Kenyamanan lingkungan, keselamatan, sistem pengupahan, dan keharmonisan hubungan industrial.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>Dukungan Manajemen</h4>
+                    <p>Kemampuan manajerial dalam membangun sistem kerja dan mengembangkan kompetensi karyawan.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="hubungan">
+            <h2>Hubungan SIM dengan Kualitas Perilaku Organisasi</h2>
+            
+            <div class="highlight-box">
+                <p>Sistem informasi manajemen memiliki keterkaitan erat dengan kualitas perilaku organisasi melalui peningkatan aksesibilitas informasi yang mendukung pengambilan keputusan dan koordinasi kerja.</p>
+            </div>
+
+            <h3>Dua Faktor Kunci Hubungan</h3>
+            
+            <div class="factors-grid">
+                <div class="factor-card">
+                    <h4>1. Faktor Kompetensi Individu (Bottom-up)</h4>
+                    <p>SIM memberikan informasi tentang prosedur kerja dan program pengembangan kompetensi seperti pendidikan dan pelatihan. Hal ini meningkatkan kualitas perilaku organisasi dari bawah ke atas.</p>
+                </div>
+                <div class="factor-card">
+                    <h4>2. Faktor Dukungan Manajemen (Top-down)</h4>
+                    <p>Melalui SIM, pemimpin dapat mengidentifikasi pola ketidakpuasan dan memberikan dukungan strategis kepada anggota organisasi, meningkatkan kualitas perilaku dari atas ke bawah.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Kesimpulan Hubungan:</strong> Kedua faktor ini saling mendukung melalui eksistensi sistem informasi manajemen, menciptakan sinergi yang memelihara proses kerja yang stabil dan berkembang. SIM menjembatani pengambilan keputusan top-down dan peningkatan kompetensi bottom-up.</p>
+            </div>
+        </div>
+
+        <div class="section methodology">
+            <h2>Metodologi Penelitian</h2>
+            <p><strong>Jenis Penelitian:</strong> Deskriptif Kualitatif</p>
+            <p><strong>Teknik Pengumpulan Data:</strong> Studi Kepustakaan melalui berbagai referensi seperti buku, jurnal penelitian ilmiah yang relevan dengan topik penelitian.</p>
+            <p><strong>Analisis Data:</strong> Analisis kualitatif dengan menarik kesimpulan melalui deduksi dari data yang dikumpulkan dan menguraikannya secara menyeluruh.</p>
+        </div>
+
+        <div class="section conclusion" id="kesimpulan">
+            <h2>Kesimpulan</h2>
+            <div class="highlight-box">
+                <p>Keberadaan sistem informasi manajemen sangat penting dalam pola komunikasi antar anggota organisasi. Kemudahan akses informasi berpengaruh pada peningkatan kualitas perilaku organisasi melalui:</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Faktor Kompetensi Individu:</strong> Mendukung pengembangan kemampuan karyawan</li>
+                    <li><strong>Faktor Dukungan Manajemen:</strong> Membantu manajemen dalam pengambilan keputusan</li>
+                </ul>
+                <p style="margin-top: 1rem;">Kedua faktor ini menjadi kunci yang saling mendukung untuk memelihara proses kerja yang stabil dan berkembang, dengan SIM sebagai jembatan komunikasi dua arah dalam organisasi.</p>
+            </div>
+        </div>
+
+        <div class="author-info">
+            <h3>Tentang Peneliti</h3>
+            <p><strong>Farid Wadjdi</strong> & <strong>Yuliza Yuliza</strong></p>
+            <p>STIE Aprin Palembang, Indonesia</p>
+            <p>Email: faridwadjdi@pasca.stie-aprin.ac.id</p>
+        </div>
+    </div>
+
+    <script>
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / scrollable) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Navigation dots
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update active navigation dot
+        window.addEventListener('scroll', () => {
+            const sections = ['header', 'penelitian', 'sim', 'perilaku', 'hubungan', 'kesimpulan'];
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            let currentSection = 0;
+            sections.forEach((sectionId, index) => {
+                const section = document.getElementById(sectionId);
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 200) {
+                    currentSection = index;
+                }
+            });
+            
+            navDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSection);
+            });
+        });
+
+        // Smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
